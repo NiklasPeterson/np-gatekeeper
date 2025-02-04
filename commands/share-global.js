@@ -24,7 +24,7 @@ module.exports = {
 		.addStringOption(option =>
 			option.setName('timezone')
 				.setDescription('Your timezone')
-				.setRequired(true)
+				.setRequired(false)
 				.setAutocomplete(true))
 		.addStringOption(option =>
 			option.setName('format')
@@ -58,7 +58,8 @@ module.exports = {
 			return interaction.reply({ content: 'Invalid time format. Please use HH:MM (24-hour format).', ephemeral: true });
 		}
 
-		const timezone = interaction.options.getString('timezone');
+
+		const timezone = interaction.options.getString('timezone') || localOffset();
 
 		// Create Date object and get Unix timestamp
 		const date = new Date(Date.UTC(year, month - 1, day, hours, minutes));
